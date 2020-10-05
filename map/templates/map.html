@@ -1,62 +1,35 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<div id='map' style='width: 400px; height: 300px;'></div>
-<script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoibXBicm93biIsImEiOiJja2ZzZjZkb2swZnM4MnJxZ242OWltZGlsIn0.I3V7VsI4edjyf4ZgOPoWhw';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-78.87, 42.88],
-    zoom: 11
-  });
-
-  // Add zoom and rotation controls to the map.
-  map.addControl(new mapboxgl.NavigationControl());
-
-  map.on('load', function () {
-    map.addSource('places', {
-      'type': 'geojson',
-      'data': {
-        'type': 'FeatureCollection',
-        'features': [{
-            'type': 'Feature',
-            'properties': {
-              'description': '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
-              'icon': 'theatre'
-            },
-            'geometry': {
-              'type': 'Point',
-              'coordinates': [-78.877992, 42.886770]
-            }
-          },
-          {
-            'type': 'Feature',
-            'properties': {
-              'description': '<strong>Mad Men Season Five Finale Watch Party</strong><p>Head to Lounge 201 (201 Massachusetts Avenue NE) Sunday for a <a href="http://madmens5finale.eventbrite.com/" target="_blank" title="Opens in a new window">Mad Men Season Five Finale Watch Party</a>, complete with 60s costume contest, Mad Men trivia, and retro food and drink. 8:00-11:00 p.m. $10 general admission, $20 admission and two hour open bar.</p>',
-              'icon': 'theatre'
-            },
-            'geometry': {
-              'type': 'Point',
-              'coordinates': [-78.819911, 42.954363]
-            }
-          },
-        ]
-      }
-    });
-  });
-
-  // Add a layer showing the places.
-  map.addLayer({
-    'id': 'places',
-    'type': 'symbol',
-    'source': 'places',
-    'layout': {
-      'icon-image': '{icon}-15',
-      'icon-allow-overlap': true
-    }
-  });
+<div class='tableauPlaceholder' id='viz1601842699293' style='position: relative'><noscript><a href='#'><img alt=' '
+        src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;SP&#47;SPARK_Dashboard&#47;SPARKDashboard&#47;1_rss.png'
+        style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
+    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+    <param name='embed_code_version' value='3' />
+    <param name='site_root' value='' />
+    <param name='name' value='SPARK_Dashboard&#47;SPARKDashboard' />
+    <param name='tabs' value='no' />
+    <param name='toolbar' value='yes' />
+    <param name='static_image'
+      value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;SP&#47;SPARK_Dashboard&#47;SPARKDashboard&#47;1.png' />
+    <param name='animate_transition' value='yes' />
+    <param name='display_static_image' value='yes' />
+    <param name='display_spinner' value='yes' />
+    <param name='display_overlay' value='yes' />
+    <param name='display_count' value='yes' />
+    <param name='language' value='en' /></object>
+  </div>
+<script type='text/javascript'>
+  var divElement = document.getElementById('viz1601842699293');
+  var vizElement = divElement.getElementsByTagName('object')[0];
+  if (divElement.offsetWidth > 800) {
+    vizElement.style.width = '100%';
+    vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+  } else if (divElement.offsetWidth > 500) {
+    vizElement.style.width = '100%';
+    vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+  } else {
+    vizElement.style.width = '100%';
+    vizElement.style.height = '827px';
+  }
+  var scriptElement = document.createElement('script');
+  scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+  vizElement.parentNode.insertBefore(scriptElement, vizElement);
 </script>
-
-{% endblock content %}

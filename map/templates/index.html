@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row px-5">
+    <div class="col">
+        <h1 class="h1">UB Spark Community Engagement Workshop</h1>
+        <p>Welcome to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique sollicitudin est, eu facilisis sapien posuere nec. Nullam egestas lorem dui, id rhoncus ex tincidunt at. Nam felis enim, ornare vulputate tellus sit amet, feugiat luctus risus. Phasellus vitae laoreet velit, vitae pretium turpis.</p>
+    </div>
+</div>
+<div class="px-5">
+    <hr>
+</div>
+<div class="row px-5">
+    <div class="col-md-12 col-xl-8">
+        <h2 class="h2">Explore the map</h2>
+        <p>Aenean vitae risus elementum, bibendum nisi quis, laoreet lorem. In sagittis tellus ut massa dictum consectetur.</p>
+        <div class="bg-light">
+            <div class="container-fluid tableau-container p-1">
+                {% include "map.html" %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-4">
+        <h2 class="h2">Make a connection</h2>
+        <form>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                <p class="small text-muted">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+          </form>
+    </div>
+</div>
+
+{% endblock content %}
