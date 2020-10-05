@@ -10,23 +10,41 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+
+DJANGO_SETTINGS_MODULE = os.getenv("DJANGO_SETTINGS_MODULE")
+
+if DJANGO_SETTINGS_MODULE == 'prod':
+    DEBUG = False
+    SECRET_KEY = os.getenv('DJANGO_MAP_SECRET_KEY')
+else:
+    DEBUG = True
+    SECRET_KEY = '6avgakb_up6&4wze0iz!cg1n(dmbyqk_eqrqlcr8(r_6*bfn(c'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+ALLOWED_HOSTS = [
+    os.getenv('DJANGO_HOST_URL')
+]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6avgakb_up6&4wze0iz!cg1n(dmbyqk_eqrqlcr8(r_6*bfn(c'
+if DJANGO_SETTINGS_MODULE == 'dev':
+    ALLOWED_HOSTS += [
+        '127.0.0.1',
+        'localhost'
+    ]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ADMINS = [
+    (os.getenv('DJANGO_ADMIN_NAME'), os.getenv('DJANGO_ADMIN_EMAIL'))
+]
 
-ALLOWED_HOSTS = []
-
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -38,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +138,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+BOOTSTRAP4 = {
+    # Set placeholder attributes to label if no placeholder is provided
+    'set_placeholder': False,
+}
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_PORT = 587
+
+# Celery Config using recommended settings from CloudAMQP
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672//')
+CELERY_BROKER_POOL_LIMIT = 1 # Will decrease connection usage
+CELERY_BROKER_HEARTBEAT = None # We're using TCP keep-alive instead
+CELERY_BROKER_CONNECTION_TIMEOUT = 30 # May require a long timeout due to Linux DNS timeouts etc
+CELERY_RESULT_BACKEND = None # AMQP is not recommended as result backend as it creates thousands of queues
+CELERY_EVENT_QUEUE_EXPIRES = 60 # Will delete all celeryev. queues without consumers after 1 minute.
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1 # Disable prefetching, it's causes problems and doesn't help performance
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
