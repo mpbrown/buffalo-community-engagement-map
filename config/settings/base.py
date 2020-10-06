@@ -13,39 +13,15 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import django_heroku
 from pathlib import Path
-from dotenv import load_dotenv
-load_dotenv()
 
-DJANGO_SETTINGS_MODULE = os.getenv("DJANGO_SETTINGS_MODULE")
-
-if DJANGO_SETTINGS_MODULE == 'prod':
-    DEBUG = False
-    SECRET_KEY = os.getenv('DJANGO_MAP_SECRET_KEY')
-else:
-    DEBUG = True
-    SECRET_KEY = '6avgakb_up6&4wze0iz!cg1n(dmbyqk_eqrqlcr8(r_6*bfn(c'
+DEBUG = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-ALLOWED_HOSTS = [
-    os.getenv('DJANGO_HOST_URL')
-]
-
-if DJANGO_SETTINGS_MODULE == 'dev':
-    ALLOWED_HOSTS += [
-        '127.0.0.1',
-        'localhost'
-    ]
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 ADMINS = [
     (os.getenv('DJANGO_ADMIN_NAME'), os.getenv('DJANGO_ADMIN_EMAIL'))
 ]
-
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -91,6 +67,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -168,5 +147,40 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+# Django Heroku settings
 if os.getenv('HOME') and '/app' in os.getenv('HOME'):
     django_heroku.settings(locals())
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
