@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import django_heroku
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
@@ -166,3 +167,6 @@ CELERY_WORKER_PREFETCH_MULTIPLIER = 1 # Disable prefetching, it's causes problem
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+if os.getenv('HOME') and '/app' in os.getenv('HOME'):
+    django_heroku.settings(locals())
