@@ -8,9 +8,7 @@
 <div class="row px-5">
     <div class="col">
         <h1 class="h1">UB Spark Community Engagement Workshop</h1>
-        <p>Welcome to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique sollicitudin est, eu
-            facilisis sapien posuere nec. Nullam egestas lorem dui, id rhoncus ex tincidunt at. Nam felis enim, ornare
-            vulputate tellus sit amet, feugiat luctus risus. Phasellus vitae laoreet velit, vitae pretium turpis.</p>
+        <p>This map shows organizations, agencies, and institutions that are good starting points for becoming civically engaged in the City of Buffalo. Organized by key transit routes accessible from Main Street Station on UB's South Campus. </p>
     </div>
 </div>
 <div class="px-5">
@@ -19,8 +17,7 @@
 <div class="row px-5">
     <div class="col-md-12 col-xl-8">
         <h2 class="h2">Explore the map</h2>
-        <p>Aenean vitae risus elementum, bibendum nisi quis, laoreet lorem. In sagittis tellus ut massa dictum
-            consectetur.</p>
+        <p>Use the filters to search by transit route, intersection, and the type of work you can get involved in..</p>
         <div class="bg-light">
             <div class="container-fluid tableau-container p-1">
                 {% include "map.html" %}
@@ -33,7 +30,7 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit and email me</button>
             {% endbuttons %}
         </form>
     </div>
