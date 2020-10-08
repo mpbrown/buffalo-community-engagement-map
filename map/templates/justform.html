@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+{% bootstrap_messages %}
+
+<div class="row px-5">
+    <div class="col">
+        <h1 class="h1">UB Spark Community Engagement Workshop</h1>
+        <p>This map shows organizations, agencies, and institutions that are good starting points for becoming civically engaged in the City of Buffalo. Organized by key transit routes accessible from University Station on UB's South Campus.</p>
+    </div>
+</div>
+<div class="px-5">
+    <hr>
+</div>
+<div class="row px-5">
+    <div class="col-12 col-xl-4">
+        <h2 class="h2">Make a connection</h2>
+        <form method="POST" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">Submit and email me</button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
