@@ -20,6 +20,4 @@ from map import views as mapViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mapViews.Home.as_view(), name='home'),
-    path('map/', mapViews.JustMap.as_view(), name='justmap'),
-    path('form/', mapViews.JustForm.as_view(), name='justform')
 ]

@@ -1,0 +1,117 @@
+{% load static %}
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModalTitle">Make a connection</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" class="form">
+            {% csrf_token %}
+        <div class="modal-body" id="app">
+                <div class="form-group">
+                    <label for="id_organization_name">Organization you&#x27;d be most interested in working with</label>
+                    <input type="text" name="organization_name" class="form-control" title="" required id="id_organization_name"
+                    @input="updateForm('id_organization_name', $event.target.value)" :value="form.id_organization_name">
+                </div>
+                <div class="form-group">
+                    <label for="id_why_interesting">Write one sentence about why this organization is interesting. How does it/could it connect to your life?</label>
+                    <textarea name="why_interesting" cols="40" rows="3" class="form-control" title="" required id="id_why_interesting"
+                    @input="updateForm('id_why_interesting', $event.target.value)" :value="form.id_why_interesting"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="id_services">Review the programs and services offered by this organization. Which ones could you contribute to?</label>
+                    <textarea name="services" cols="40" rows="3" class="form-control" title="" required id="id_services"
+                    @input="updateForm('id_services', $event.target.value)" :value="form.id_services"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="id_contribute">Write one sentence about how you believe you can contribute to the organization.</label>
+                    <textarea name="contribute" cols="40" rows="3" class="form-control" title="" required id="id_contribute"
+                    @input="updateForm('id_contribute', $event.target.value)" :value="form.id_contribute"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="id_staff_member_name">Staff member name</label>
+                    <input type="text" name="staff_member_name" class="form-control" title="" required id="id_staff_member_name"
+                    @input="updateForm('id_staff_member_name', $event.target.value)" :value="form.id_staff_member_name">
+                </div>
+                <div class="form-group">
+                    <label for="id_staff_member_title">Staff member title</label>
+                    <input type="text" name="staff_member_title" class="form-control" title="" required id="id_staff_member_title"
+                    @input="updateForm('id_staff_member_title', $event.target.value)" :value="form.id_staff_member_title">
+                </div>
+                <div class="form-group">
+                    <label for="id_staff_member_email">Staff member email</label>
+                    <input type="email" name="staff_member_email" class="form-control" title="" required id="id_staff_member_email"
+                    @input="updateForm('id_staff_member_email', $event.target.value)" :value="form.id_staff_member_email">
+                </div>
+                <div class="form-group">
+                    <label for="id_student_name">Your name</label>
+                    <input type="text" name="student_name" class="form-control" title="" required id="id_student_name"
+                    @input="updateForm('id_student_name', $event.target.value)" :value="form.id_student_name">
+                </div>
+                <div class="form-group">
+                    <label for="id_student_email">Your UB email address</label>
+                    <input type="email" name="student_email" class="form-control" title="" required id="id_student_email"
+                    @input="updateForm('id_student_email', $event.target.value)" :value="form.id_student_email">
+                </div>
+                <div class="form-group">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Save and close</button>
+        <button type="submit" class="btn btn-primary">Submit and email me</button>
+        </div>
+    </form>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+    var app = new Vue({
+      delimiters: ['[[', ']]'],
+      el: '#app',
+      data: {
+        form: {
+            id_organization_name: '',
+            id_why_interesting: '',
+            id_services: '',
+            id_contribute: '',
+            id_staff_member_name: '',
+            id_staff_member_title: '',
+            id_student_name: '',
+            id_student_email: '',
+          }
+      },
+      methods: {
+        updateForm (input, value) {
+            this.form[input] = value
+            
+            let storedForm = this.openStorage() // extract stored form
+            if (!storedForm) storedForm = {} // if none exists, default to empty object
+            
+            storedForm[input] = value // store new value
+            this.saveStorage(storedForm) // save changes into localStorage
+        },
+        openStorage () {
+            return JSON.parse(localStorage.getItem('form'))
+        },
+        saveStorage (form) {
+            localStorage.setItem('form', JSON.stringify(form))
+        },
+      },
+        created () {
+            const storedForm = this.openStorage()
+            if (storedForm) {
+                this.form = {
+                    ...this.form,
+                    ...storedForm
+                }
+            }
+        }
+    });
+  </script>
