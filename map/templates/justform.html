@@ -15,16 +15,7 @@
     <hr>
 </div>
 <div class="row px-5">
-    <div class="col-12 col-xl-4">
-        <h2 class="h2">Make a connection</h2>
-        <form method="POST" class="form">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            {% buttons %}
-            <button type="submit" class="btn btn-primary">Submit and email me</button>
-            {% endbuttons %}
-        </form>
-    </div>
+    {% include "form.html" %}
 </div>
 
 {% endblock content %}
