@@ -14,10 +14,16 @@
         <form method="POST" class="form">
             {% csrf_token %}
         <div class="modal-body" id="app">
+          <div>
+            <p><small>Explore the map and use filters to <b>find three</b> organizations you might be interested in working with. Then <b>pick the one</b> that interests you the most.</small></p>
+          </div>
                 <div class="form-group">
                     <label for="id_organization_name">Organization you&#x27;d be most interested in working with</label>
                     <input type="text" name="organization_name" class="form-control" title="" required id="id_organization_name"
                     @input="updateForm('id_organization_name', $event.target.value)" :value="form.id_organization_name">
+                </div>
+                <div>
+                  <p><small>Search for the organization online and explore their website if they have one.</small></p>
                 </div>
                 <div class="form-group">
                     <label for="id_why_interesting">Write one sentence about why this organization is interesting. How does it/could it connect to your life?</label>
@@ -33,6 +39,9 @@
                     <label for="id_contribute">Write one sentence about how you believe you can contribute to the organization.</label>
                     <textarea name="contribute" cols="40" rows="3" class="form-control" title="" required id="id_contribute"
                     @input="updateForm('id_contribute', $event.target.value)" :value="form.id_contribute"></textarea>
+                </div>
+                <div>
+                  <p><small>Search for someone at the organization you might be interested in working with. If they have a website, check for a staff directory or an about us page.</small></p>
                 </div>
                 <div class="form-group">
                     <label for="id_staff_member_name">Staff member name</label>
@@ -62,6 +71,9 @@
                 <div class="form-group">
         </div>
         <div class="modal-footer">
+          <div>
+            <p><small>This form emails you a copy of your responses and your next steps in the workshop. This does <b>not</b> automatically email the staff member's email you listed.</small></p>
+          </div>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Save and close</button>
         <button type="submit" class="btn btn-primary">Submit and email me</button>
         </div>
