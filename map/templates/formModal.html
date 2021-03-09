@@ -15,21 +15,23 @@
             {% csrf_token %}
         <div class="modal-body" id="app">
           <div>
-            <p><small>Explore the map and use filters to <b>find three</b> organizations you might be interested in working with. Then <b>pick the one</b> that interests you the most.</small></p>
+            <p><small>Explore the map and use filters to <b>find three</b> organizations that are interesting to you.</small></p>
+            <p><small>Next, look up these organizations online. Take a few momements to review their websites. Then <b>choose one</b> organization that you are most interested in.</small></p>
           </div>
                 <div class="form-group">
                     <label for="id_organization_name">Organization you&#x27;d be most interested in working with</label>
                     <input type="text" name="organization_name" class="form-control" title="" required id="id_organization_name"
                     @input="updateForm('id_organization_name', $event.target.value)" :value="form.id_organization_name">
                 </div>
-                <div>
-                  <p><small>Search for the organization online and explore their website if they have one.</small></p>
-                </div>
                 <div class="form-group">
                     <label for="id_why_interesting">Write one sentence about why this organization is interesting. How does it/could it connect to your life?</label>
                     <textarea name="why_interesting" cols="40" rows="3" class="form-control" title="" required id="id_why_interesting"
                     @input="updateForm('id_why_interesting', $event.target.value)" :value="form.id_why_interesting"></textarea>
                 </div>
+                <div>
+                  <p><small>Dive a bit deeper into the organization (website, news reports, social media, etc.)</small></p>
+                </div>
+                
                 <div class="form-group">
                     <label for="id_services">Review the programs and services offered by this organization. Which ones could you contribute to?</label>
                     <textarea name="services" cols="40" rows="3" class="form-control" title="" required id="id_services"
@@ -41,7 +43,7 @@
                     @input="updateForm('id_contribute', $event.target.value)" :value="form.id_contribute"></textarea>
                 </div>
                 <div>
-                  <p><small>Search for someone at the organization you might be interested in working with. If they have a website, check for a staff directory or an about us page.</small></p>
+                  <p><small>Take a look at the leadership and staff at the organization. Which staff member is best to connect with?</small></p>
                 </div>
                 <div class="form-group">
                     <label for="id_staff_member_name">Staff member name</label>
