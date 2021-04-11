@@ -19,7 +19,8 @@ Due to the COVID-19 pandemic cancelling the in-person workshop, I adapted the ac
 
 ### Requirements
 Make sure these are installed on your machine.
-- [Python](https://www.python.org/downloads/) (3.7+)
+- [Python 3](https://www.python.org/downloads/)
+- [RabbitMQ](https://www.rabbitmq.com/download.html) - for async emailing
 
 ### Instructions
 
